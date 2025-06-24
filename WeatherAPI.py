@@ -1,8 +1,8 @@
 import requests
 import pandas as pd
-import psycopg2
+#import psycopg2
 from sqlalchemy import create_engine
-from urllib.parse import quote_plus
+#from urllib.parse import quote_plus
 
 # Defining API endpoint for a specific location (Seattle, WA in this case)
 api_url = "https://api.open-meteo.com/v1/forecast"
@@ -86,8 +86,9 @@ if "hourly_weather_df" in locals() and not hourly_weather_df.empty:
     db_port = "5432"
     db_name = "weatherdb"
 
-    encoded_pwd = quote_plus(db_pwd) # To handle special characters like '@', '/', etc.
-    engine = create_engine(f'postgresql://{db_user}:{encoded_pwd}@{db_host}:{db_port}/{db_name}')
+    # encoded_pwd = quote_plus(db_pwd)
+    # To handle special characters like '@', '/', etc. Use this when password has special characters. Replace "db_pwd" in the connection string below with "encoded_pwd".
+    engine = create_engine(f'postgresql://{db_user}:{db_pwd}@{db_host}:{db_port}/{db_name}')
 
     # 2. Load the dataframe into PostgreSQL
     table_name = "hourly_weather_forecasts"
